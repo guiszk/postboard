@@ -96,10 +96,11 @@ app.post('/post', urlencodedParser, function(req, res){
             <body>
                 <p>text</p>
                 <form action="/" method="GET">
-                <p>User ` + response['user'] + ` posted: ` + response['content'] + ` at: ` + response['date'] +`</p>`
+                <p>User ` + response['user'] + ` posted: ` + response['content'] + ` at: ` + response['date'] +`</p>
+                <p>` + response['user'] + `\'s previous posts: </p>`
     revposts.forEach(db => {
         if(db.user == response['user']) {
-            ht += `\n<p>${db.user}\'s previous posts: ${db.content} at ${db.date}</p>`;
+            ht += `\n<p>${db.content} at ${db.date}</p>`;
         }
     });
 
