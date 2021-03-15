@@ -1,32 +1,9 @@
 [
     {
+        "id": 0,
         "user": "user",
         "content": "post",
-        "date": "2021/2/14 12:7:1"
-    },
-    {
-        "user": "user",
-        "content": "post",
-        "date": "2021/2/14 12:55:59"
-    },
-    {
-        "user": "user",
-        "content": "post",
-        "date": "2021/2/14 13:2:25"
-    },
-    {
-        "user": "user",
-        "content": "post",
-        "date": "2021/2/14 13:2:46"
-    },
-    {
-        "user": "user",
-        "content": "post",
-        "date": "2021/2/14 13:3:9"
-    },
-    {
-        "user": "user",
-        "content": "post",
-        "date": "2021/2/14 13:6:8"
+        "date": "2021/2/14 10:7:1",
+        "likes": 1
     }
 ]
