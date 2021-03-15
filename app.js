@@ -19,17 +19,25 @@ function up_date() {
     datestr = year.toString() + '/' + month.toString() + '/' + day.toString() + ' ' + hours.toString() + ':' + minutes.toString() + ':' + seconds.toString()
     return datestr
 }
-
+/* REAL
 var server = app.listen(process.env.PORT, function(){
     var host = '0.0.0.0';
     var port = process.env.PORT || 8888;
 });
-
+*/
 
 // TESTING
-/*var server = app.listen(8888, function(){
+var server = app.listen(8888, function(){
     console.log("Listening at http://localhost:8888/");
-});*/
+});
+
+head = `
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <title>postboard</title>
+
+`
 
 app.get('/', function(req, res) {
     file = fs.readFileSync('./posts.json', 'utf8');
@@ -39,11 +47,9 @@ app.get('/', function(req, res) {
     revposts = posts.slice().sort(function(a, b) {return a.likes - b.likes}).reverse();
     //posts = 'fsdasfdafsd';
 
-    ht = `
-        <!DOCTYPE html>
-        <html>
-            <head>
-                <title>postboard</title>
+
+
+    ht = head + `
             </head>
             <body>
                 <div>
@@ -53,26 +59,42 @@ app.get('/', function(req, res) {
                     <p><button id="postbtn" type="submit" value="submit">post</button></p>
                     </form>
                 </div>
+                <div align="right">
+                    <input type="text" id="search"></input>
+                    <div id="results"></div>
+                </div>
+                <script type="text/javascript">
+                    srch = document.getElementById("search");
+                    srch.oninput = function(e) {
+                        var posts = document.getElementsByTagName("ul")[0].getElementsByTagName("p");
+                        document.getElementById("results").innerHTML = "";
+                        for(var i = 0; i < posts.length; i++) {
+                            if(posts[i].innerHTML.includes(srch.value) && srch.value && srch.value != ' ') {
+                                document.getElementById("results").innerHTML += "<p>" + posts[i].innerHTML + "</p>";
+                            }
+                        }
+                    }
+                </script>
                 <div>
                     <p>posts (` + revposts.length.toString() + ` total):</p>
                     <ul id="parent">
                 `;
 
     revposts.forEach(db => {
-        ht += `<br>`
         ht += `<li>`
-        ht += `<form action="/like" method="POST" style="display: inline;">`;
-        ht += `${db.user} posted: ${db.content} at ${db.date} (likes: ${db.likes}) `;
-        ht += `<input type="hidden" type="text" value="1" name="action">`;
-        ht += `<input type="hidden" type="text" value="${db.id}" name="id">`;
-        ht += `<button type="submit" value="submit" style="display: inline;">like</button>`;
-        ht += `</form> `;
-        ht += `<form action="/like" method="POST" style="display: inline;">`;
-        ht += `<input type="hidden" type="text" value="0" name="action">`;
-        ht += `<input type="hidden" type="text" value="${db.id}" name="id">`;
-        ht += `<button class="nowrap" type="submit" value="submit" style="display: inline;">dislike</button>`;
-        ht += `</form>`;
+        ht +=   `<form action="/like" method="POST" style="display: inline;">`;
+        ht +=       `<p style="display: inline;">${db.user} posted: ${db.content} at ${db.date} (likes: ${db.likes}) </p>`;
+        ht +=       `<input type="hidden" type="text" value="1" name="action">`;
+        ht +=       `<input type="hidden" type="text" value="${db.id}" name="id">`;
+        ht +=       `<button type="submit" value="submit" style="display: inline;">like</button>`;
+        ht +=   `</form> `;
+        ht +=   `<form action="/like" method="POST" style="display: inline;">`;
+        ht +=       `<input type="hidden" type="text" value="0" name="action">`;
+        ht +=       `<input type="hidden" type="text" value="${db.id}" name="id">`;
+        ht +=       `<button class="nowrap" type="submit" value="submit" style="display: inline;">dislike</button>`;
+        ht +=   `</form>`;
         ht += `</li>`;
+        ht += `<br>`
     });
 
     ht += `     </ul>
@@ -99,11 +121,7 @@ app.post('/post', urlencodedParser, function(req, res){
         likes : 0
     };
 
-    ht = `
-        <!DOCTYPE html>
-        <html>
-            <head>
-                <title>postboard: posts</title>
+    ht = head + `
             </head>
             <body>
                 <p>text</p>
