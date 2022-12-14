@@ -10,12 +10,11 @@ app.use(express.static(__dirname + '/views'));
 const { Client } = require('pg')
 const connectionString = process.env.CONNECTURI;
 
-const client = new Client()
+const client = new Client({ connectionString, })
 
 client.connect()
 
 app.get('/', (req, res) => {
-
     // get all posts from db
     query = 'SELECT * FROM posts;';
     client.query(query, (err, pgres) => {
