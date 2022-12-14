@@ -48,7 +48,7 @@ app.post('/', urlencodedParser, function (req, res) {
     res.redirect("/");
 });
 
-// run locally
+// uncomment to run locally
 /* app.listen(8080, () => {
     console.log('listening on http://localhost:8080');
 }); */
