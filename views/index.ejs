@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>postboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        @media only screen and (max-width: 480px) {
+            .newpost {
+                left: 50%;
+                top: 50%;
+            }
+        }
+
+        body {
+            font-family: "Galvji", sans-serif;
+        }
+
+        .title {
+            margin: 20px 0px 30px 0px;
+        }
+
+        .title h1 {
+            display: inline;
+        }
+
+        .title button {
+            font-size: 90%;
+            display: inline;
+            float: right;
+            font-family: inherit;
+            background-color: transparent;
+            color: #666;
+            border: 0px;
+        }
+
+        .title button:hover {
+            color: #333;
+            cursor: pointer;
+        }
+
+        .post {
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+
+        .post-title {
+            font-size: 100%;
+            font-weight: bold;
+            display: inline;
+        }
+
+        .post-date {
+            font-size: 75%;
+            color: #666;
+            display: inline;
+            float: right;
+        }
+
+        .post-num {
+            font-size: 75%;
+            color: #666;
+            display: inline;
+        }
+
+        .post-content {
+            margin-top: 10px;
+        }
+
+        .newpost {
+            position: fixed;
+            top: 50px;
+            right: 20px;
+        }
+
+        .about {
+            position: fixed;
+            top: 50px;
+            right: 80px;
+            background-color: #fff;
+            padding: 20px;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.05) 0px 5px 15px;
+        }
+
+        .about a {
+            text-decoration: none;
+        }
+
+        .about a:hover {
+            color: #002e5f;
+        }
+
+        /* Form styles */
+        form {
+            color: #333;
+            background-color: #fff;
+            padding: 20px;
+            max-width: 300px;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: rgba(0, 0, 0, 0.15) 0px 5px 15px;
+        }
+
+        /* Input and textarea styles */
+        input,
+        textarea {
+            font-family: monospace;
+            font-size: 90%;
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            box-sizing: border-box;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            outline: none;
+            display: inline;
+        }
+
+        /* Submit button styles */
+        input[type="submit"] {
+            background-color: #007AFF;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0059b9;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="title">
+        <h1>postboard</h1>
+        <!-- <button>login</button> -->
+        <button onclick="toggle('newpost');">new post</button>
+        <button onclick="toggle('about');">about</button>
+    </div>
+    <div style="display: none;" id="about" class="about">
+        <a href="https://github.com/guiszk">@guiszk</a>
+        <a href="https://github.com/guiszk/postboard">source code</a>
+    </div>
+    <div style="display: none;" id="newpost" class="newpost">
+        <form action="#" method="POST">
+            <label for="title">Title:</label><br>
+            <input type="text" id="title" name="title"><br>
+            <label for="content">Content:</label><br>
+            <textarea id="content" name="content" rows="2" cols="80"></textarea><br>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+    <br>
+
+    <% posts.forEach((post)=> { %>
+        <div class="post">
+            <div class="post-title">
+                <%= post.title %>
+            </div>
+            <div class="post-num">
+                #<%= post.id %>
+            </div>
+            <div class="post-date">
+                <%= post.date %>
+            </div>
+            <div class="post-content">
+                <%= post.content %>
+            </div>
+        </div>
+        <% }) %>
+
+            <script>
+                function toggle(x) {
+                    el = document.getElementById(x);
+                    el.style.display = el.style.display == "block" ? "none" : "block";
+                }
+            </script>
+</body>
+
+</html>
