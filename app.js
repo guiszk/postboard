@@ -8,6 +8,8 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/views'));
 
 const { Client } = require('pg')
+const connectionString = process.env.CONNECTURI;
+
 const client = new Client()
 
 client.connect()
