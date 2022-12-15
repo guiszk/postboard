@@ -50,12 +50,12 @@ app.post('/', urlencodedParser, function (req, res) {
 });
 
 // uncomment to run locally
-app.listen(8080, () => {
+/* app.listen(8080, () => {
     console.log('listening on http://localhost:8080');
-});
+}); */
 
 // run
-/* var server = app.listen(process.env.PORT, function () {
+var server = app.listen(process.env.PORT, function () {
     var host = '0.0.0.0';
     var port = process.env.PORT || 8888;
-}); */
+});
